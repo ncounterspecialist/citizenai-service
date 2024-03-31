@@ -1,6 +1,6 @@
 import { headers, cookies } from "next/headers";
 
-export async function POST(request) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
     const headersList = headers();
@@ -22,7 +22,7 @@ export async function POST(request) {
   }
 }
 
-export async function GET(request) {
+export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const headersList = headers();
