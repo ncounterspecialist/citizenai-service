@@ -14,8 +14,8 @@ export async function POST(request: Request) {
     console.log("Headers", headersList);
     console.log("Cookies", cookieStore);
 
-    const { context, requestBody } = body || {};
-    const { requestId, organizationId, projectId } = context || {};
+    const { context, requestBody } = body;
+    const { requestId, organizationId, projectId } = context;
     const now = Math.floor(new Date().getTime() / 1000);
     const {
       timestamp,
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       mOutput,
       status,
       errorMessage,
-    } = requestBody || {};
+    } = requestBody;
     const postObject = {
       requestId,
       projectId,
@@ -37,13 +37,14 @@ export async function POST(request: Request) {
       requestTime: now,
       requestDay: Math.floor(now / 86400),
       input: typeof input === "string" ? input : JSON.stringify(input),
+      inputType,
       inputSchema,
       output: typeof output === "string" ? output : JSON.stringify(output),
       outputSchema,
       outputMetadata,
       mOutput: typeof mOutput === "string" ? mOutput : JSON.stringify(mOutput),
       status,
-      approvalStatus: approvalStatus || "PENDING",
+      approvalStatus: "PENDING",
       errorMessage,
     };
     const response =
@@ -89,8 +90,8 @@ export async function PUT(request: Request) {
     const cookieStore = cookies();
     console.log("Headers", headersList);
     console.log("Cookies", cookieStore);
-    const { context, requestBody } = body || {};
-    const { requestId, organizationId, projectId } = context || {};
+    const { context, requestBody } = body;
+    const { requestId, organizationId, projectId } = context;
     const {
       id,
       timestamp,
@@ -105,7 +106,7 @@ export async function PUT(request: Request) {
       status,
       errorMessage,
       _version,
-    } = requestBody || {};
+    } = requestBody;
     const postObject = {
       id,
       requestId,
@@ -119,7 +120,7 @@ export async function PUT(request: Request) {
       outputMetadata,
       mOutput: typeof mOutput === "string" ? mOutput : JSON.stringify(mOutput),
       status,
-      approvalStatus: approvalStatus || "PENDING",
+      approvalStatus: "PENDING",
       errorMessage,
       _version,
     };
