@@ -15,7 +15,7 @@ type ResponseType = {
   body: any;
   header: any;
 };
-const endpoint = process.env.APPSYNC_ENDPOINT as string;
+const endpoint = process.env.REACT_APP_APPSYNC_ENDPOINT as string;
 const awsClient: GraphQLClient = new GraphQLClient(endpoint);
 export const executeQuery = async ({
   queryName,

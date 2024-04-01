@@ -49,7 +49,7 @@ export async function POST(request: Request) {
           input: postObject,
         },
         header: {
-          "x-api-key": process.env.APPSYNC_APIKEY as string,
+          "x-api-key": process.env.REACT_APP_APPSYNC_APIKEY as string,
         },
       })) || {};
 
@@ -123,7 +123,7 @@ export async function PUT(request: Request) {
           input: postObject,
         },
         header: {
-          "x-api-key": process.env.APPSYNC_APIKEY as string,
+          "x-api-key": process.env.REACT_APP_APPSYNC_APIKEY as string,
         },
       })) || {};
 
