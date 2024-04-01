@@ -13,10 +13,11 @@ export async function POST(request: Request) {
     const cookieStore = cookies();
     console.log("Headers", headersList);
     console.log("Cookies", cookieStore);
+
+    const { context, requestBody } = body || {};
+    const { requestId, organizationId, projectId } = context || {};
     const {
-      requestId,
-      projectId,
-      requestTime,
+      timestamp: requestTime,
       inputType,
       input,
       inputSchema,
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
       outputMetadata,
       status,
       errorMessage,
-    } = body || {};
+    } = requestBody || {};
     const postObject = {
       requestId,
       projectId,
@@ -82,11 +83,11 @@ export async function PUT(request: Request) {
     const cookieStore = cookies();
     console.log("Headers", headersList);
     console.log("Cookies", cookieStore);
+    const { context, requestBody } = body || {};
+    const { requestId, organizationId, projectId } = context || {};
     const {
       id,
-      requestId,
-      projectId,
-      requestTime,
+      timestamp: requestTime,
       inputType,
       input,
       inputSchema,
@@ -96,7 +97,7 @@ export async function PUT(request: Request) {
       status,
       errorMessage,
       _version,
-    } = body || {};
+    } = requestBody || {};
     const postObject = {
       id,
       requestId,
