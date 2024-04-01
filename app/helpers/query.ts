@@ -7,7 +7,9 @@ export const createRequestResponseTable = /* GraphQL */ `
       id
       requestId
       projectId
+      clientEventTime
       requestTime
+      requestDay
       inputType
       input
       inputSchema
@@ -17,14 +19,16 @@ export const createRequestResponseTable = /* GraphQL */ `
       outputMetadata
       status
       errorMessage
+      approvalStatus
       createdAt
       updatedAt
       _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
 `;
-
 export const updateRequestResponseTable = /* GraphQL */ `
   mutation UpdateRequestResponseTable(
     $input: UpdateRequestResponseTableInput!
@@ -34,7 +38,9 @@ export const updateRequestResponseTable = /* GraphQL */ `
       id
       requestId
       projectId
+      clientEventTime
       requestTime
+      requestDay
       inputType
       input
       inputSchema
@@ -44,9 +50,12 @@ export const updateRequestResponseTable = /* GraphQL */ `
       outputMetadata
       status
       errorMessage
+      approvalStatus
       createdAt
       updatedAt
       _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }

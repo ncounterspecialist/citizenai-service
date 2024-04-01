@@ -16,28 +16,34 @@ export async function POST(request: Request) {
 
     const { context, requestBody } = body || {};
     const { requestId, organizationId, projectId } = context || {};
+    const now = Math.floor(new Date().getTime() / 1000);
     const {
-      timestamp: requestTime,
+      timestamp,
+      approvalStatus,
       inputType,
       input,
       inputSchema,
       output,
       outputSchema,
       outputMetadata,
+      mOutput,
       status,
       errorMessage,
     } = requestBody || {};
     const postObject = {
       requestId,
       projectId,
-      requestTime,
-      inputType,
+      clientEventTime: timestamp,
+      requestTime: now,
+      requestDay: Math.floor(now / 86400),
       input: typeof input === "string" ? input : JSON.stringify(input),
       inputSchema,
       output: typeof output === "string" ? output : JSON.stringify(output),
       outputSchema,
       outputMetadata,
+      mOutput: typeof mOutput === "string" ? mOutput : JSON.stringify(mOutput),
       status,
+      approvalStatus: approvalStatus || "PENDING",
       errorMessage,
     };
     const response =
@@ -87,13 +93,15 @@ export async function PUT(request: Request) {
     const { requestId, organizationId, projectId } = context || {};
     const {
       id,
-      timestamp: requestTime,
+      timestamp,
       inputType,
       input,
       inputSchema,
       output,
+      mOutput,
       outputSchema,
       outputMetadata,
+      approvalStatus,
       status,
       errorMessage,
       _version,
@@ -102,14 +110,16 @@ export async function PUT(request: Request) {
       id,
       requestId,
       projectId,
-      requestTime,
+      timestamp,
       inputType,
       input: typeof input === "string" ? input : JSON.stringify(input),
       inputSchema,
       output: typeof output === "string" ? output : JSON.stringify(output),
       outputSchema,
       outputMetadata,
+      mOutput: typeof mOutput === "string" ? mOutput : JSON.stringify(mOutput),
       status,
+      approvalStatus: approvalStatus || "PENDING",
       errorMessage,
       _version,
     };
