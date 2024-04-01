@@ -1,4 +1,5 @@
 import { executeQuery } from "@/app/helpers/awsClient";
+import { apiErrorHandler } from "@/app/helpers/data.util";
 import {
   createRequestResponseTable,
   updateRequestResponseTable,
@@ -12,20 +13,7 @@ export async function POST(request: Request) {
     const cookieStore = cookies();
     console.log("Headers", headersList);
     console.log("Cookies", cookieStore);
-    const { context, requestBody } = body || {};
-    const { requestId, projectId } = context || {};
     const {
-      timestamp: requestTime,
-      inputType,
-      input,
-      inputSchema,
-      output,
-      outputSchema,
-      outputMetadata,
-      status,
-      errorMessage,
-    } = requestBody || {};
-    const postObject = {
       requestId,
       projectId,
       requestTime,
@@ -37,12 +25,27 @@ export async function POST(request: Request) {
       outputMetadata,
       status,
       errorMessage,
+    } = body || {};
+    const postObject = {
+      requestId,
+      projectId,
+      requestTime,
+      inputType,
+      input: typeof input === "string" ? input : JSON.stringify(input),
+      inputSchema,
+      output: typeof output === "string" ? output : JSON.stringify(output),
+      outputSchema,
+      outputMetadata,
+      status,
+      errorMessage,
     };
     const response =
       (await executeQuery({
         queryName: "createRequestResponseTable",
         query: createRequestResponseTable,
-        body: postObject,
+        body: {
+          input: postObject,
+        },
         header: {
           "x-api-key": process.env.APPSYNC_APIKEY as string,
         },
@@ -68,8 +71,7 @@ export async function POST(request: Request) {
       }
     );
   } catch (error) {
-    console.log(error);
-    return Response.json("Error in sending message");
+    return apiErrorHandler(error);
   }
 }
 
@@ -80,22 +82,7 @@ export async function PUT(request: Request) {
     const cookieStore = cookies();
     console.log("Headers", headersList);
     console.log("Cookies", cookieStore);
-    const { context, requestBody } = body || {};
-    const { requestId, projectId } = context || {};
     const {
-      id,
-      timestamp: requestTime,
-      inputType,
-      input,
-      inputSchema,
-      output,
-      outputSchema,
-      outputMetadata,
-      status,
-      errorMessage,
-      _version,
-    } = requestBody || {};
-    const postObject = {
       id,
       requestId,
       projectId,
@@ -109,12 +96,29 @@ export async function PUT(request: Request) {
       status,
       errorMessage,
       _version,
+    } = body || {};
+    const postObject = {
+      id,
+      requestId,
+      projectId,
+      requestTime,
+      inputType,
+      input: typeof input === "string" ? input : JSON.stringify(input),
+      inputSchema,
+      output: typeof output === "string" ? output : JSON.stringify(output),
+      outputSchema,
+      outputMetadata,
+      status,
+      errorMessage,
+      _version,
     };
     const response =
       (await executeQuery({
         queryName: "updateRequestResponseTable",
         query: updateRequestResponseTable,
-        body: postObject,
+        body: {
+          input: postObject,
+        },
         header: {
           "x-api-key": process.env.APPSYNC_APIKEY as string,
         },
@@ -140,7 +144,6 @@ export async function PUT(request: Request) {
       }
     );
   } catch (error) {
-    console.log(error);
-    return Response.json("Error in sending message");
+    return apiErrorHandler(error);
   }
 }
