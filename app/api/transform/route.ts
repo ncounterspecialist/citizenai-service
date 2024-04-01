@@ -13,7 +13,6 @@ export async function POST(request: Request) {
     const now = Math.floor(new Date().getTime() / 1000);
     const {
       timestamp,
-      approvalStatus,
       inputType,
       input,
       inputSchema,
