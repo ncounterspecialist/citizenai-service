@@ -24,6 +24,7 @@ export const executeQuery = async ({
   header,
 }: RequestType) => {
   console.log("input is: " + JSON.stringify(body));
+  console.log("URL: ", endpoint);
   let nextToken = null;
   let result: ResponseData = null;
   try {

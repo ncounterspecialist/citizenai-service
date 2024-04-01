@@ -4,16 +4,10 @@ import {
   createRequestResponseTable,
   updateRequestResponseTable,
 } from "@/app/helpers/query";
-import { headers, cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const headersList = headers();
-    const cookieStore = cookies();
-    console.log("Headers", headersList);
-    console.log("Cookies", cookieStore);
-
     const { context, requestBody } = body;
     const { requestId, organizationId, projectId } = context;
     const now = Math.floor(new Date().getTime() / 1000);
@@ -79,6 +73,7 @@ export async function POST(request: Request) {
       }
     );
   } catch (error) {
+    console.log("Error in query");
     return apiErrorHandler(error);
   }
 }
@@ -86,10 +81,6 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const headersList = headers();
-    const cookieStore = cookies();
-    console.log("Headers", headersList);
-    console.log("Cookies", cookieStore);
     const { context, requestBody } = body;
     const { requestId, organizationId, projectId } = context;
     const {
@@ -156,6 +147,7 @@ export async function PUT(request: Request) {
       }
     );
   } catch (error) {
+    console.log("Error in query");
     return apiErrorHandler(error);
   }
 }
